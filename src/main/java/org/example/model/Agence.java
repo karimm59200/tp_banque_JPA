@@ -3,14 +3,14 @@ package org.example.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.List;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "agence")
 public class Agence {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private Long id;
     private String address;
 
 
@@ -22,16 +22,16 @@ public class Agence {
         this.address = address;
     }
 
-    public Agence(int id, String address) {
+    public Agence(Long id, String address) {
         this.id = id;
         this.address = address;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

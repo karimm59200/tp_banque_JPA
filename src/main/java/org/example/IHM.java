@@ -18,8 +18,11 @@ public class IHM {
     private static AgenceDAOImpl agenceDAO;
     private static ClientDAOImpl clientDAO;
     private static CompteDAOImpl compteDAO;
+    private static org.example.model.Agence Agence;
 
-    public static void main() {
+
+
+    public static void start() {
         entityManagerFactory = javax.persistence.Persistence.createEntityManagerFactory("banque");
         agenceDAO = new AgenceDAOImpl(entityManagerFactory);
         clientDAO = new ClientDAOImpl(entityManagerFactory);
@@ -38,13 +41,13 @@ public class IHM {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    addAgence(scanner);
+                    addAgence();
                     break;
                 case 2:
-                    addClient(scanner);
+                    addClient();
                     break;
                 case 3:
-                    addCompte(scanner);
+                    addCompte();
                     break;
                 case 4:
                     System.out.println("Au revoir!");
@@ -56,11 +59,11 @@ public class IHM {
 
     }
 
-    private static void addAgence(Scanner scanner) {
-
+    private static void addAgence() {
+        Scanner sc = new Scanner(System.in);
 
         System.out.print("Adresse de l'agence: ");
-        String adresse = scanner.nextLine();
+        String adresse = sc.nextLine();
 
         Agence agence = new Agence(adresse);
         agenceDAO.addAgence(agence);
@@ -68,15 +71,16 @@ public class IHM {
 
     }
 
-    private static void addClient (Scanner scanner){
+    private static void addClient (){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Nom du client: ");
-        String nom = scanner.nextLine();
+        String nom = sc.nextLine();
 
         System.out.println("Prénom du client: ");
-        String prenom = scanner.nextLine();
+        String prenom = sc.nextLine();
 
         System.out.println("Date de naissance du client (dd.MM.yyyy: ");
-        String dateNaissanceStr = scanner.nextLine();
+        String dateNaissanceStr = sc.nextLine();
 
         LocalDate dateNaissance = LocalDate.parse(dateNaissanceStr, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
@@ -88,26 +92,33 @@ public class IHM {
 
     }
 
-    private static void addCompte (Scanner scanner){
+    private static void addCompte (){
+        Scanner sc = new Scanner(System.in);
         System.out.println("numéro de compte: ");
-        String numero = scanner.nextLine();
+        String libelle = sc.nextLine();
 
         System.out.println("iban: ");
-        String iban = scanner.nextLine();
+        String iban = sc.nextLine();
 
         System.out.println("Solde du compte: ");
-        double solde = scanner.nextDouble();
+        double solde = sc.nextDouble();
+        sc.nextLine();
 
         System.out.println("Agence du compte: ");
-        String agence = scanner.nextLine();
+        Long idAgence = sc.nextLong();
+        sc.nextLine();
 
         System.out.println("Numéro du client: ");
-        int idClient = scanner.nextInt();
+        Long idClient = sc.nextLong();
 
-        Compte compte = new Compte( numero, iban, solde, agence, idClient);
-        compteDAO.addCompte(compte);
+        Compte compte = new Compte(libelle, iban, solde);
+        compteDAO.addCompte(compte, idAgence, idClient);
         System.out.println("Compte ajouté avec succès!");
 
     }
+
+
+
+
 }
 

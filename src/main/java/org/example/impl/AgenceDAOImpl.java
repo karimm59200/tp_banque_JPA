@@ -15,10 +15,11 @@ public class AgenceDAOImpl  implements AgenceDAO {
         this.entityManagerFactory = entityManagerFactory;
     }
     @Override
-    public boolean addAgence(Agence agence) {
+    public void addAgence(Agence agence) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
+        System.err.println(agence.getAddress());
         entityManager.persist(agence);
         transaction.commit();
         entityManager.close();

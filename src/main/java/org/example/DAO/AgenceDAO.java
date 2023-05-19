@@ -4,5 +4,5 @@ import org.example.model.Agence;
 
 public interface AgenceDAO {
 
-    public boolean addAgence(Agence agence);
+     void addAgence(Agence agence);
 }

@@ -4,7 +4,7 @@ import org.example.model.Compte;
 
 public interface CompteDAO {
 
-    public void addCompte(Compte compte);
+    void addCompte(Compte compte, Long idAgence, Long idClient);
 
 
 }

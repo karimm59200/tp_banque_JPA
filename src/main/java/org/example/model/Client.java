@@ -3,21 +3,21 @@ package org.example.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 @Entity
+@Table(name = "client")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String firstName;
 
     private String lastName;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "compte_client", joinColumns = @JoinColumn(name = "client_id"),
@@ -27,7 +27,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(int id, String firstName, String lastName, Date birthDate, List<Compte> comptes) {
+    public Client(Long id, String firstName, String lastName, LocalDate birthDate, List<Compte> comptes) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,24 +35,24 @@ public class Client {
         this.comptes = comptes;
     }
 
-    public Client(String firstName, String lastName, Date birthDate, List<Compte> comptes) {
+    public Client(String firstName, String lastName, LocalDate birthDate, List<Compte> comptes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.comptes = comptes;
     }
 
-    public Client(String firstName, String lastName, Date birthDate) {
+    public Client(String firstName, String lastName, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -73,11 +73,11 @@ public class Client {
     }
 
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
